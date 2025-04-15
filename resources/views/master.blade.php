@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zxx">
+    <head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- Links Of CSS File -->
+		<link rel="stylesheet" href="assets/css/sidebar-menu.css">
+		<link rel="stylesheet" href="assets/css/simplebar.css">
+		<link rel="stylesheet" href="assets/css/apexcharts.css">
+		<link rel="stylesheet" href="assets/css/prism.css">
+		<link rel="stylesheet" href="assets/css/rangeslider.css">
+        <link rel="stylesheet" href="assets/css/quill.snow.css">
+        <link rel="stylesheet" href="assets/css/google-icon.css">
+        <link rel="stylesheet" href="assets/css/remixicon.css">
+        <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
+        <link rel="stylesheet" href="assets/css/fullcalendar.main.css">
+        <link rel="stylesheet" href="assets/css/jsvectormap.min.css">
+        <link rel="stylesheet" href="assets/css/lightpick.css">
+		<link rel="stylesheet" href="assets/css/style.css">
+		
+		<!-- Favicon -->
+		<link rel="icon" type="image/png" href="assets/images/favicon.png">
+		<!-- Title -->
+		<title>Trezo - Bootstrap 5 Admin Dashboard Template</title>
+    </head>
+    <body class="boxed-size">
+        <!-- Start Preloader Area -->
+        <div class="preloader" id="preloader">
+            <div class="preloader">
+                <div class="waviy position-relative">
+                    <span class="d-inline-block">T</span>
+                    <span class="d-inline-block">R</span>
+                    <span class="d-inline-block">E</span>
+                    <span class="d-inline-block">Z</span>
+                    <span class="d-inline-block">O</span>
+                </div>
+            </div>
+        </div>
+        <!-- End Preloader Area -->
+
+        <!-- Start Sidebar Area -->
+      @include('layouts.sidebar')
+        <!-- End Sidebar Area -->
+
+        <!-- Start Main Content Area -->
+        <div class="container-fluid">
+            <div class="main-content d-flex flex-column">
+                <!-- Start Header Area -->
+               @include('layouts.header')
+                <!-- End Header Area -->
+
+               @yield('content')
+
+                <div class="flex-grow-1"></div>
+
+                <!-- Start Footer Area -->
+               @include('layouts.footer')
+                <!-- End Footer Area -->
+            </div>
+        </div>
+        <!-- Start Main Content Area -->
+
+        <!-- Start Create Option Area -->
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+            <div class="offcanvas-header border-bottom p-4">
+                <h5 class="offcanvas-title fs-18 mb-0" id="offcanvasRightLabel">Create Task</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body p-4">
+                <form>
+                    <div class="form-group mb-4">
+                        <label class="label">Task ID</label>
+                        <input type="text" class="form-control text-dark" placeholder="Task ID">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="label">Task Title</label>
+                        <input type="text" class="form-control text-dark" placeholder="Task Title">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="label">Assigned To</label>
+                        <input type="text" class="form-control text-dark" placeholder="Assigned To">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="label">Due Date</label>
+                        <input type="date" class="form-control text-dark">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="label">Priority</label>
+                        <select class="form-select form-control text-dark" aria-label="Default select example">
+                            <option selected>High</option>
+                            <option value="1">Low</option>
+                            <option value="2">Medium</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group mb-4">
+                        <label class="label">Status</label>
+                        <select class="form-select form-control text-dark" aria-label="Default select example">
+                            <option selected>Finished</option>
+                            <option value="1">Pending</option>
+                            <option value="2">In Progress</option>	 
+                            <option value="3">Cancelled</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label class="label">Action</label>
+                        <select class="form-select form-control text-dark" aria-label="Default select example">
+                            <option selected>Yes</option>
+                            <option value="1">No</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group d-flex gap-3">
+                        <button class="btn btn-primary text-white fw-semibold py-2 px-2 px-sm-3">
+                            <span class="py-sm-1 d-block">
+                                <i class="ri-add-line text-white"></i>
+                                <span>Create Task</span>
+                            </span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- End Create Option Area -->
+
+        <!-- Start Theme Setting Area -->
+        <div class="offcanvas offcanvas-end bg-white" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
+            <div class="offcanvas-header bg-body-bg py-3 px-4">
+                <h5 class="offcanvas-title fs-18" id="offcanvasScrollingLabel">Theme Settings</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body p-4">
+                <div class="mb-4 pb-2">
+                    <h4 class="fs-15 fw-semibold border-bottom pb-2 mb-3">RTL / LTR</h4>
+                    <div class="settings-btn rtl-btn">
+                        <label id="switch" class="switch">
+                            <input type="checkbox" onchange="toggleTheme()" id="slider">
+                            <span class="sliders round"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="mb-4 pb-2">
+                    <h4 class="fs-15 fw-semibold border-bottom pb-2 mb-3">Container Style Fluid / Boxed</h4>
+                    <button class="boxed-style settings-btn fluid-boxed-btn" id="boxed-style">
+                        Click To <span class="fluid">Fluid</span> <span class="boxed">Boxed</span>
+                    </button>
+                </div>
+                <div class="mb-4 pb-2">
+                    <h4 class="fs-15 fw-semibold border-bottom pb-2 mb-3">Only Sidebar Light / Dark</h4>
+                    <button class="sidebar-light-dark settings-btn sidebar-dark-btn" id="sidebar-light-dark">
+                        Click To <span class="dark1">Dark</span> <span class="light1">Light</span>
+                    </button>
+                </div>
+                <div class="mb-4 pb-2">
+                    <h4 class="fs-15 fw-semibold border-bottom pb-2 mb-3">Only Header Light / Dark</h4>
+                    <button class="header-light-dark settings-btn header-dark-btn" id="header-light-dark">
+                        Click To <span class="dark2">Dark</span> <span class="light2">Light</span>
+                    </button>
+                </div>
+                <div class="mb-4 pb-2">
+                    <h4 class="fs-15 fw-semibold border-bottom pb-2 mb-3">Only Footer Light / Dark</h4>
+                    <button class="footer-light-dark settings-btn footer-dark-btn" id="footer-light-dark">
+                        Click To <span class="dark3">Dark</span> <span class="light3">Light</span>
+                    </button>
+                </div>
+                <div class="mb-4 pb-2">
+                    <h4 class="fs-15 fw-semibold border-bottom pb-2 mb-3">Card Style Radius / Square</h4>
+                    <button class="card-radius-square settings-btn card-style-btn" id="card-radius-square">
+                        Click To <span class="square">Square</span> <span class="radius">Radius</span>
+                    </button>
+                </div>
+                <div class="mb-4 pb-2">
+                    <h4 class="fs-15 fw-semibold border-bottom pb-2 mb-3">Card Style BG White / Gray</h4>
+                    <button class="card-bg settings-btn card-bg-style-btn" id="card-bg">
+                        Click To <span class="white">White</span> <span class="gray">Gray</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- End Theme Setting Area -->
+     
+        <!-- Link Of JS File -->
+        <script src="assets/js/bootstrap.bundle.min.js"></script>
+        <script src="assets/js/sidebar-menu.js"></script>
+        <script src="assets/js/dragdrop.js"></script>
+        <script src="assets/js/rangeslider.min.js"></script>
+        <script src="assets/js/quill.min.js"></script>
+        <script src="assets/js/data-table.js"></script>
+        <script src="assets/js/prism.js"></script>
+        <script src="assets/js/clipboard.min.js"></script>
+        <script src="assets/js/feather.min.js"></script>
+        <script src="assets/js/simplebar.min.js"></script>
+        <script src="assets/js/apexcharts.min.js"></script>
+        <script src="assets/js/echarts.js"></script>
+        <script src="assets/js/swiper-bundle.min.js"></script>
+        <script src="assets/js/fullcalendar.main.js"></script>
+        <script src="assets/js/jsvectormap.min.js"></script>
+        <script src="assets/js/world-merc.js"></script>
+        <script src="assets/js/moment.min.js"></script>
+        <script src="assets/js/lightpick.js"></script>
+        <script src="assets/js/custom/apexcharts.js"></script>
+        <script src="assets/js/custom/echarts.js"></script>
+        <script src="assets/js/custom/custom.js"></script>
+    </body>
+</html>
