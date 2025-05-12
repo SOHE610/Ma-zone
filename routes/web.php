@@ -1,7 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\InformationController;
+use App\Http\Controllers\MairieController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\SignalementsController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,26 +18,38 @@ use App\Http\Controllers\Api\InformationController;
 |
 */
 
-Route::get('/', function () {
-    return view('pages.index');
+Route::get('/login', function () {
+    return view('pages.login');
+})->name('login');
+
+//Route::post('/logins', [MairieController::class,'login']);
+Route::post('/logins', [UserController::class,'loginUser']);
+
+Route::get('/formulaire-mairie', function () {
+    return view('pages.formulaire-mairie');
 });
-Route::get('/Projet', function () {
-    return view('pages.Projet');
+
+route::get('/signalement',[FrontendController::class,'signalement']);
+route::post('/signalement',[SignalementsController::class,'store']);
+
+Route::post('/mairies', [MairieController::class, 'store']);
+
+Route::middleware('auth')->group(function(){
+
+    //Logout
+    Route::post('/logout',[UserController::class,'logoutUser'])->name('logout');
+
+    Route::get('/delete/{id}',[UserController::class,'deleteUser']);
+    Route::get('/update/{id}',[UserController::class,'updateUser']);
+    Route::post('/update',[UserController::class,"update"]);
+
+    Route::get('/', [FrontendController::class,"index"])->name('home');
+    Route::get('/Projet',[FrontendController::class,"Projet"]);
+    Route::get('/Réception', [FrontendController::class,"Réception"]);
+    Route::get('/Membres',[FrontendController::class,"Membres"]);
+
+    Route::post('/userstore',[UserController::class,"store"]);
 });
-Route::get('/Réception', function () {
-    return view('pages.Réception');
-});
 
 
 
-
-
-// Afficher le formulaire de test
-Route::view('/test-signalement', 'pages.test_information_form');
-
-// Tester la méthode store
-Route::post('/test-signalement', [InformationController::class, 'store'])->name('test.information.store');
-
-
-// Route pour afficher les informations
-Route::get('/Réception', [InformationController::class, 'index'])->name('information.index');

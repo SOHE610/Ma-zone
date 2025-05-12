@@ -3,7 +3,7 @@
 @section('content')
 <div class="main-content-container overflow-hidden">
     <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
-        <h3 class="mb-0">Affectation</h3>
+        <h3 class="mb-0">MEMBRES</h3>
 
         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb align-items-center mb-0 lh-1">
@@ -17,7 +17,7 @@
                     <span class="fw-medium">Apps</span>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                    <span class="fw-medium">Réception</span>
+                    <span class="fw-medium">Membre</span>
                 </li>
             </ol>
         </nav>
@@ -32,6 +32,12 @@
                     <input type="text" class="form-control" placeholder="Search here">
                     <i class="material-symbols-outlined position-absolute top-50 start-0 translate-middle-y">search</i>
                 </form>
+                <button class="btn btn-outline-primary py-1 px-2 px-sm-4 fs-14 fw-medium rounded-3 hover-bg" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                    <span class="py-sm-1 d-block">
+                        <i class="ri-add-line d-none d-sm-inline-block"></i>
+                        <span>Ajouter un Membre</span>
+                    </span>
+                </button>
             </div>
 
             <div class="default-table-area style-two default-table-width">
@@ -45,65 +51,47 @@
                                         <label class="position-relative top-2 ms-1" for="flexCheckDefault7">ID</label>
                                     </div>
                                 </th>
-                                <th scope="col">Task Title</th>
-                                <th scope="col">Assigned To</th>
-                                <th scope="col">Due Date</th>
-                                <th scope="col">Priority</th>
-                                <th scope="col">Attribuer à</th>
+                                <th scope="col">Nom/Prénom</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
+
+                            @forelse ($users as $index=>$user )
+                                
                             <tr>
                                 <td class="text-body">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault12">
-                                        <label class="position-relative top-2 ms-1" for="flexCheckDefault12">#854</label>
+                                        <label class="position-relative top-2 ms-1" for="flexCheckDefault12"> {{ $index + 1 }} </label>
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="project-overview.html" class="text-body">Network Infrastructure</a>
+                                    <a href="project-overview.html" class="text-body"> {{ $user->responsable_nom }} </a>
                                 </td>
-                                <td>Oliver Clark</td>
-                                <td class="text-body">30 Apr 2024</td>
-                                <td class="text-body">High</td>
+                                <td>{{ $user->email_contact }}</td>
                                 <td>
-                                    <span class="badge bg-success bg-opacity-10 text-success p-2 fs-12 fw-normal">Finished</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-body">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault8">
-                                        <label class="position-relative top-2 ms-1" for="flexCheckDefault8">#853</label>
+                                    
+                                        <button class="ps-0 border-0 bg-transparent lh-1 position-relative top-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasUpdate" aria-controls="offcanvasUpdate" >
+                                            <i class="material-symbols-outlined fs-16 text-body"><a href="/update/{{ $user->id }}">edit
+
+                                            </a>
+                                                </i>
+                                        </button>
+                                        <button class="ps-0 border-0 bg-transparent lh-1 position-relative top-2">
+                                            <i class="material-symbols-outlined fs-16 text-danger"> <a href="/delete/{{ $user->id }}"> delete</a></i>
+                                        </button>
                                     </div>
-                                </td>
-                                <td>
-                                    <a href="project-overview.html" class="text-body">Cloud Migration</a>
-                                </td>
-                                <td>Ethan Baker</td>
-                                <td class="text-body">25 Apr 2024</td>
-                                <td class="text-body">Low</td>
-                                <td>
-                                    <span class="badge bg-danger bg-opacity-10 text-danger p-2 fs-12 fw-normal">Pending</span>
-                                </td>
+                                </td> 
                             </tr>
-                            <tr>
-                                <td class="text-body">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault9">
-                                        <label class="position-relative top-2 ms-1" for="flexCheckDefault9">#852</label>
-                                    </div>
-                                </td>
-                                <td>
-                                    <a href="project-overview.html" class="text-body">Website Revamp</a>
-                                </td>
-                                <td>Sophia Carter</td>
-                                <td class="text-body">20 Apr 2024</td>
-                                <td class="text-body">Medium</td>
-                                <td>
-                                    <span class="badge bg-primary-div bg-opacity-10 text-primary-div p-2 fs-12 fw-normal">In Progress</span>
-                                </td>
-                            </tr>
+
+                            @empty
+                                
+                            @endforelse
+
+                           
+
                         </tbody>
                     </table>
                 </div>
@@ -135,4 +123,56 @@
         </div>
     </div>
 </div>
+
+
+  <!-- Start Create Option Area -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header border-bottom p-4">
+        <h5 class="offcanvas-title fs-18 mb-0" id="offcanvasRightLabel">Create Task</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body p-4">
+
+        @if(session('success'))
+        <div style="background-color: #d4edda; padding: 10px; border-radius: 5px; margin-bottom: 10px;">
+            {{ session('success') }}
+     
+        </div>
+      @endif 
+
+        <form action="/userstore" method="POST" >
+            @csrf
+            
+            <div class="form-group mb-4">
+                <label class="label">Nom/Prénom</label>
+                <input type="text" name="responsable_nom" class="form-control text-dark" placeholder="Nom/Prénom">
+            </div>
+            <div class="form-group mb-4">
+                <label class="label">Email</label>
+                <input type="text" name="email_contact" class="form-control text-dark" placeholder="Email">
+            </div>
+            <div class="form-group mb-4">
+                <label class="label">Password</label>
+                <input type="Password" name="password"  class="form-control text-dark">
+           
+            </div>
+            <div class="form-group mb-4">
+           
+            <div class="form-group d-flex gap-3">
+                <button class="btn btn-primary text-white fw-semibold py-2 px-2 px-sm-3">
+                    <span class="py-sm-1 d-block">
+                        <i class="ri-add-line text-white"></i>
+                        <span>Create Task</span>
+                    </span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+<!-- End Create Option Area -->
+
 @endsection

@@ -77,7 +77,7 @@
                     <li class="header-right-item">
                         <div class="light-dark">
                             <button class="switch-toggle settings-btn dark-btn p-0 bg-transparent" id="switch-toggle">
-                                <span class="dark"><i class="material-symbols-outlined">light_mode</i></span> 
+                                <span class="dark"><i class="material-symbols-outlined">light_mode</i></span>
                                 <span class="light"><i class="material-symbols-outlined">dark_mode</i></span>
                             </button>
                         </div>
@@ -168,7 +168,7 @@
                                 <div class="d-flex justify-content-between align-items-center title">
                                     <span class="fw-semibold fs-15 text-secondary">Notifications <span class="fw-normal text-body fs-14">(03)</span></span>
                                     <button class="p-0 m-0 bg-transparent border-0 fs-14 text-primary">Clear All</button>
-                                </div> 
+                                </div>
 
                                 <div class="max-h-217" data-simplebar>
                                     <div class="notification-menu">
@@ -297,10 +297,10 @@
                                             <span class="ms-2">Messages</span>
                                         </a>
                                     </li>
-                                    
+
                                 </ul>
                                 <ul class="admin-link ps-0 mb-0 list-unstyled">
-                                    
+
                                     <li>
                                         <a class="dropdown-item admin-item-link d-flex align-items-center text-body" href="lock-screen.html">
                                             <i class="material-symbols-outlined">lock</i>
@@ -308,10 +308,14 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item admin-item-link d-flex align-items-center text-body" href="login.html">
-                                            <i class="material-symbols-outlined">logout</i>
-                                            <span class="ms-2">Logout</span>
-                                        </a>
+                                        <form action="{{route('logout')}}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="dropdown-item admin-item-link d-flex align-items-center text-body" href="login.html">
+                                                <i class="material-symbols-outlined">logout</i>
+                                                <span class="ms-2">Déconnexion  </span>
+                                            </button>
+                                        </form>
+
                                     </li>
                                 </ul>
                             </div>

@@ -16,4 +16,3 @@ use App\Http\Controllers\Api\InformationController;
 */
 
 
-Route::get('/Réception',[InformationController::class,'Réceprion_information']);

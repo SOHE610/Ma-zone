@@ -62,69 +62,7 @@
         </div>
         <!-- Start Main Content Area -->
 
-        <!-- Start Create Option Area -->
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-            <div class="offcanvas-header border-bottom p-4">
-                <h5 class="offcanvas-title fs-18 mb-0" id="offcanvasRightLabel">Create Task</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body p-4">
-                <form>
-                    <div class="form-group mb-4">
-                        <label class="label">Task ID</label>
-                        <input type="text" class="form-control text-dark" placeholder="Task ID">
-                    </div>
-                    <div class="form-group mb-4">
-                        <label class="label">Task Title</label>
-                        <input type="text" class="form-control text-dark" placeholder="Task Title">
-                    </div>
-                    <div class="form-group mb-4">
-                        <label class="label">Assigned To</label>
-                        <input type="text" class="form-control text-dark" placeholder="Assigned To">
-                    </div>
-                    <div class="form-group mb-4">
-                        <label class="label">Due Date</label>
-                        <input type="date" class="form-control text-dark">
-                    </div>
-                    <div class="form-group mb-4">
-                        <label class="label">Priority</label>
-                        <select class="form-select form-control text-dark" aria-label="Default select example">
-                            <option selected>High</option>
-                            <option value="1">Low</option>
-                            <option value="2">Medium</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group mb-4">
-                        <label class="label">Status</label>
-                        <select class="form-select form-control text-dark" aria-label="Default select example">
-                            <option selected>Finished</option>
-                            <option value="1">Pending</option>
-                            <option value="2">In Progress</option>	 
-                            <option value="3">Cancelled</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group mb-4">
-                        <label class="label">Action</label>
-                        <select class="form-select form-control text-dark" aria-label="Default select example">
-                            <option selected>Yes</option>
-                            <option value="1">No</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group d-flex gap-3">
-                        <button class="btn btn-primary text-white fw-semibold py-2 px-2 px-sm-3">
-                            <span class="py-sm-1 d-block">
-                                <i class="ri-add-line text-white"></i>
-                                <span>Create Task</span>
-                            </span>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <!-- End Create Option Area -->
+      
 
         <!-- Start Theme Setting Area -->
         <div class="offcanvas offcanvas-end bg-white" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
