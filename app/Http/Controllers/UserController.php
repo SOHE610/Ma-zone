@@ -83,6 +83,6 @@ class UserController extends Controller
         $user = User::find($id);
         $user->delete();
 
-        return redirect()->back()->with('success', 'Membre enregistrée avec succès !');
+        return redirect()->back()->with('success', 'Membre su avec succès !');
     }
 }

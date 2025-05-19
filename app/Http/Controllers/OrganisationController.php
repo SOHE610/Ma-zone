@@ -76,5 +76,25 @@ class OrganisationController extends Controller
             return view('pages.Organisation', compact('organisations'));
         }
 
+        public function update(Request $request, $id)
+            {
+                $request->validate([
+                    'nom' => 'required|string|max:255',
+                    'type' => 'nullable|string|max:255',
+                    'email' => 'required|email|unique:organisations,email,'.$id,
+                    'telephone' => 'nullable|string|max:20',
+                ]);
+
+                $organisation = Organisation::findOrFail($id);
+                $organisation->update([
+                    'nom' => $request->nom,
+                    'type' => $request->type,
+                    'email' => $request->email,
+                    'telephone' => $request->telephone,
+                ]);
+
+                return redirect()->back()->with('success', 'Organisation modifiée avec succès.');
+            }
+
 
 }

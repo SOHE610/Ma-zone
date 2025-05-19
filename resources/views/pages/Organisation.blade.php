@@ -3,7 +3,7 @@
 @section('content')
 <div class="main-content-container overflow-hidden">
     <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
-        <h3 class="mb-0">MEMBRES</h3>
+        <h3 class="mb-0">ORGANISATION</h3>
 
         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb align-items-center mb-0 lh-1">
@@ -75,26 +75,68 @@
                                     <td class="text-body">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="{{ $organisation->id }}" id="check{{ $organisation->id }}">
-                                            <label class="position-relative top-2 ms-1" for="check{{ $organisation->id }}">{{ $organisation->id }}</label>
+                                            <label class="position-relative top-2 ms-1" for="check{{ $organisation->id }}">{{ $loop->iteration }}</label>
                                         </div>
                                     </td>
+
                                     <td><a href="#" class="text-body">{{ $organisation->nom }}</a></td>
                                     <td>{{ $organisation->type }}</td>
                                     <td>{{ $organisation->email }}</td>
                                     <td>{{ $organisation->telephone }}</td>
                                     <td>
-                                        <button class="ps-0 border-0 bg-transparent lh-1 position-relative top-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                            <i class="material-symbols-outlined fs-16 text-body">edit</i>
-                                        </button>
-                                        <form action="{{ route('organisations.destroy', $organisation->id) }}" method="POST" class="d-inline">
+                                       <!-- Bouton Modifier -->
+                                    <button type="button"
+                                        class="ps-0 border-0 bg-transparent lh-1 position-relative top-2"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#editOrganisationModal{{ $organisation->id }}">
+                                        <i class="material-symbols-outlined fs-16 text-body">edit</i>
+                                    </button>
+                                       <form action="{{ route('organisations.destroy', $organisation->id) }}" method="POST" class="d-inline delete-form">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="ps-0 border-0 bg-transparent lh-1 position-relative top-2">
+                                            <button type="button" class="ps-0 border-0 bg-transparent lh-1 position-relative top-2 delete-btn">
                                                 <i class="material-symbols-outlined fs-16 text-danger">delete</i>
                                             </button>
                                         </form>
                                     </td>
                                 </tr>
+                                <!-- Modal d'édition -->
+                                <div class="modal fade" id="editOrganisationModal{{ $organisation->id }}" tabindex="-1" aria-labelledby="editOrganisationLabel{{ $organisation->id }}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form action="{{ route('organisations.update', $organisation->id) }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <div class="modal-header">
+                                                <h5 class="modal-title" id="editOrganisationLabel{{ $organisation->id }}">Modifier l'organisation</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                <div class="mb-3">
+                                                    <label>Nom</label>
+                                                    <input type="text" name="nom" class="form-control" value="{{ $organisation->nom }}">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label>Type</label>
+                                                    <input type="text" name="type" class="form-control" value="{{ $organisation->type }}">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label>Email</label>
+                                                    <input type="email" name="email" class="form-control" value="{{ $organisation->email }}">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label>Téléphone</label>
+                                                    <input type="text" name="telephone" class="form-control" value="{{ $organisation->telephone }}">
+                                                </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             @endforeach
                         </tbody>
 
@@ -121,6 +163,8 @@
 
 
 </div>
+
+
 
 
 
@@ -191,6 +235,30 @@
             })
             .catch(error => console.error('Error:', error));
     }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.querySelectorAll('.delete-btn').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const form = btn.closest('form');
+            Swal.fire({
+                title: 'Êtes-vous sûr ?',
+                text: "Cette action est irréversible.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Oui, supprimer !',
+                cancelButtonText: 'Annuler'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
 </script>
 
 @endsection

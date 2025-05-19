@@ -23,7 +23,7 @@
         </nav>
     </div>
 
-    
+
 
 
 
@@ -69,6 +69,7 @@
                                         <label class="position-relative top-2 ms-1" for="flexCheckDefault12"> {{ $index + 1 }} </label>
                                     </div>
                                 </td>
+
                                 <td>
                                     <a href="project-overview.html" class="text-body"> {{ $user->responsable_nom }} </a>
                                 </td>
@@ -80,12 +81,60 @@
                                                 <a >edit</a>
                                             </i>
                                         </button>
-                                        <button class="ps-0 border-0 bg-transparent lh-1 position-relative top-2">
-                                            <i class="material-symbols-outlined fs-16 text-danger"> <a href="/delete/{{ $user->id }}"> delete</a></i>
-                                        </button>
+
+                                        <form action="/delete/{{ $user->id }}" method="POST" class="d-inline delete-user-form">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="button" class="ps-0 border-0 bg-transparent lh-1 position-relative top-2 delete-user-btn">
+                                                <i class="material-symbols-outlined fs-16 text-danger">delete</i>
+                                            </button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
+                            <!-- Modal -->
+                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog ">
+
+                                        @if (isset($user))
+
+                                            <form action="{{ route('users.update', ['id' => $user->id ]) }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="staticBackdropLabel">Modifier un Utilisateur</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+
+                                                        <input type="hidden" name="id" id="user_id">
+
+                                                        <div class="form-group  mb-3">
+                                                            <label for="responsable_nom" class="form-label">Nom du responsable</label>
+                                                            <input type="text" class="form-control" id="responsable_nom" name="responsable_nom" required>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label for="email_contact" class="form-label">Email de contact</label>
+                                                            <input type="email" class="form-control" id="email_contact" name="email_contact" required>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                                        <button type="submit"class="btn btn-primary">Modifier</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                        @endif
+
+
+                                    </div>
+                                </div>
+
 
                             @empty
 
@@ -126,48 +175,6 @@
 
 
 
-    <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog ">
-
-            @if (isset($user))
-
-                <form action="{{ route('users.update', ['id' => $user->id ]) }}" method="POST">
-                    @csrf
-                    @method('PUT')
-
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Modifier un Utilisateur</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-
-                            <input type="hidden" name="id" id="user_id">
-
-                            <div class="form-group  mb-3">
-                                <label for="responsable_nom" class="form-label">Nom du responsable</label>
-                                <input type="text" class="form-control" id="responsable_nom" name="responsable_nom" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="email_contact" class="form-label">Email de contact</label>
-                                <input type="email" class="form-control" id="email_contact" name="email_contact" required>
-                            </div>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                            <button type="submit"class="btn btn-primary">Modifier</button>
-                        </div>
-                    </div>
-                </form>
-
-            @endif
-
-
-        </div>
-    </div>
 
 
 </div>
@@ -238,6 +245,29 @@
             })
             .catch(error => console.error('Error:', error));
     }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.querySelectorAll('.delete-user-btn').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const form = btn.closest('form');
+            Swal.fire({
+                title: 'Êtes-vous sûr ?',
+                text: "Cette action est irréversible.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Oui, supprimer !',
+                cancelButtonText: 'Annuler'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
 </script>
 
 @endsection

@@ -42,7 +42,7 @@ Route::middleware('auth')->group(function(){
     //Logout
     Route::post('/logout',[UserController::class,'logoutUser'])->name('logout');
 
-    Route::get('/delete/{id}',[UserController::class,'deleteUser']);
+    Route::delete('/delete/{id}', [UserController::class, 'deleteUser'])->name('users.destroy');
     Route::get('/update/{id}',[UserController::class,'updateUser']);
     Route::put('/users/update/{id}', [UserController::class, 'update'])->name('users.update');
 
@@ -54,6 +54,7 @@ Route::middleware('auth')->group(function(){
     Route::post('/Organisatione', [OrganisationController::class, 'store']);
     Route::get('/organisations', [OrganisationController::class, 'index']);
     Route::delete('/organisations/{id}', [OrganisationController::class, 'destroy'])->name('organisations.destroy');
+    Route::put('/organisations/{id}', [OrganisationController::class, 'update'])->name('organisations.update');
 
 
     route::post('/signalement',[SignalementsController::class,'store']);

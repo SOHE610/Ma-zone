@@ -19,7 +19,8 @@
         <link rel="stylesheet" href="assets/css/jsvectormap.min.css">
         <link rel="stylesheet" href="assets/css/lightpick.css">
 		<link rel="stylesheet" href="assets/css/style.css">
-		
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 		<!-- Favicon -->
 		<link rel="icon" type="image/png" href="assets/images/favicon.png">
 		<!-- Title -->
@@ -62,7 +63,7 @@
         </div>
         <!-- Start Main Content Area -->
 
-      
+
 
         <!-- Start Theme Setting Area -->
         <div class="offcanvas offcanvas-end bg-white" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
@@ -119,7 +120,7 @@
             </div>
         </div>
         <!-- End Theme Setting Area -->
-     
+
         <!-- Link Of JS File -->
         <script src="assets/js/bootstrap.bundle.min.js"></script>
         <script src="assets/js/sidebar-menu.js"></script>
@@ -142,5 +143,6 @@
         <script src="assets/js/custom/apexcharts.js"></script>
         <script src="assets/js/custom/echarts.js"></script>
         <script src="assets/js/custom/custom.js"></script>
+
     </body>
 </html>
