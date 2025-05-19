@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Signalements;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,8 @@ class FrontendController extends Controller
     }
 
     public function Projet(){
-        return view('pages.Projet');
+        $sgns = Signalements::orderBy('id','desc')->get();
+        return view('pages.Projet',compact('sgns'));
     }
 
     public function Réception(){
@@ -26,6 +28,10 @@ class FrontendController extends Controller
 
     public function signalement(){
         return view('pages.signalement');
+    }
+
+      public function Organisation(){
+        return view('pages.Organisation');
     }
 
    

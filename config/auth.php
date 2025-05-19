@@ -40,6 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'organisation' => [
+            'driver' => 'session',
+            'provider' => 'organisations',
+        ],
     ],
 
     /*
@@ -64,9 +69,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-        'mairies' => [
+
+        'organisations' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Mairie::class,
+            'model' => App\Models\Organisation::class,
         ],
 
         // 'users' => [

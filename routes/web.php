@@ -4,8 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MairieController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\OrganisationController;
 use App\Http\Controllers\SignalementsController;
 use App\Http\Controllers\UserController;
+use App\Models\Organisation;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,12 +27,13 @@ Route::get('/login', function () {
 //Route::post('/logins', [MairieController::class,'login']);
 Route::post('/logins', [UserController::class,'loginUser']);
 
+
 Route::get('/formulaire-mairie', function () {
     return view('pages.formulaire-mairie');
 });
 
 route::get('/signalement',[FrontendController::class,'signalement']);
-route::post('/signalement',[SignalementsController::class,'store']);
+
 
 Route::post('/mairies', [MairieController::class, 'store']);
 
@@ -41,15 +44,28 @@ Route::middleware('auth')->group(function(){
 
     Route::get('/delete/{id}',[UserController::class,'deleteUser']);
     Route::get('/update/{id}',[UserController::class,'updateUser']);
-    Route::post('/update',[UserController::class,"update"]);
+    Route::put('/users/update/{id}', [UserController::class, 'update'])->name('users.update');
 
     Route::get('/', [FrontendController::class,"index"])->name('home');
     Route::get('/Projet',[FrontendController::class,"Projet"]);
     Route::get('/Réception', [FrontendController::class,"Réception"]);
     Route::get('/Membres',[FrontendController::class,"Membres"]);
+    Route::get('/Organisation',[OrganisationController::class,"index"]);
+    Route::post('/Organisatione', [OrganisationController::class, 'store']);
+    Route::get('/organisations', [OrganisationController::class, 'index']);
+    Route::delete('/organisations/{id}', [OrganisationController::class, 'destroy'])->name('organisations.destroy');
+
+
+    route::post('/signalement',[SignalementsController::class,'store']);
 
     Route::post('/userstore',[UserController::class,"store"]);
+
+
+
 });
+
+
+
 
 
 

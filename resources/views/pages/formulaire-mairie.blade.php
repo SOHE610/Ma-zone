@@ -10,14 +10,14 @@
       margin: 0;
       padding: 40px 20px;
     }
-  
+
     h2 {
       text-align: center;
       color: #2c3e50;
       margin-bottom: 30px;
       font-size: 28px;
     }
-  
+
     form {
       background-color: #ffffff;
       max-width: 600px;
@@ -27,11 +27,11 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
       transition: box-shadow 0.3s ease-in-out;
     }
-  
+
     form:hover {
       box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
     }
-  
+
     label {
       display: block;
       margin-top: 20px;
@@ -39,7 +39,7 @@
       color: #34495e;
       font-size: 15px;
     }
-  
+
     input[type="text"],
     input[type="email"],
     input[type="tel"],
@@ -54,14 +54,14 @@
       font-size: 14px;
       transition: border-color 0.3s;
     }
-  
+
     input:focus,
     select:focus {
       outline: none;
       border-color: #3498db;
       box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
     }
-  
+
     button {
       margin-top: 30px;
       background-color: #3498db;
@@ -75,11 +75,11 @@
       font-weight: bold;
       transition: background-color 0.3s ease-in-out;
     }
-  
+
     button:hover {
       background-color: #2980b9;
     }
-  
+
     /* Style du message de succès */
     div[style*="background-color: #d4edda"] {
       color: #155724;
@@ -90,7 +90,7 @@
       margin-bottom: 20px;
       font-size: 14px;
     }
-  
+
     /* Responsive */
     @media (max-width: 640px) {
       form {
@@ -98,7 +98,7 @@
       }
     }
   </style>
-  
+
 </head>
 <body>
 
@@ -106,14 +106,26 @@
   @if(session('success'))
     <div style="background-color: #d4edda; padding: 10px; border-radius: 5px; margin-bottom: 10px;">
         {{ session('success') }}
- 
+
     </div>
-  @endif 
+  @endif
+
+   @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+
 
   <form  action="/mairies" method="POST" enctype="multipart/form-data">
     @csrf
 
-  
+
     <label for="nom">Nom de la mairie *</label>
     <input type="text" id="nom" name="nom" required value="{{ old('nom') }}">
 
@@ -126,7 +138,7 @@
     <label for="telephone">Téléphone *</label>
     <input type="tel" id="telephone" name="telephone" value="{{ old('telephone') }}" required>
 
-    <label for="password">Mot da passe *</label>
+    <label for="password">Mots de passe *</label>
     <input type="password" id="password" name="password" value="{{ old('password') }}" required>
 
     <label for="logo">Logo (facultatif)</label>
@@ -168,7 +180,7 @@
     });
 
     // Gestion de la soumission du formulaire
-    
+
   </script>
 
 </body>

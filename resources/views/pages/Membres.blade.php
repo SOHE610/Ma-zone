@@ -25,6 +25,8 @@
 
     
 
+
+
     <div class="card bg-white border-0 rounded-3 mb-4">
         <div class="card-body p-0">
             <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 p-4">
@@ -59,7 +61,7 @@
                         <tbody>
 
                             @forelse ($users as $index=>$user )
-                                
+
                             <tr>
                                 <td class="text-body">
                                     <div class="form-check">
@@ -72,25 +74,24 @@
                                 </td>
                                 <td>{{ $user->email_contact }}</td>
                                 <td>
-                                    
-                                        <button class="ps-0 border-0 bg-transparent lh-1 position-relative top-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasUpdate" aria-controls="offcanvasUpdate" >
-                                            <i class="material-symbols-outlined fs-16 text-body"><a href="/update/{{ $user->id }}">edit
 
-                                            </a>
-                                                </i>
+                                        <button class="ps-0 border-0 bg-transparent lh-1 position-relative top-2" onclick="showUser({{ $user->id }})" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >
+                                            <i class="material-symbols-outlined fs-16 text-body">
+                                                <a >edit</a>
+                                            </i>
                                         </button>
                                         <button class="ps-0 border-0 bg-transparent lh-1 position-relative top-2">
                                             <i class="material-symbols-outlined fs-16 text-danger"> <a href="/delete/{{ $user->id }}"> delete</a></i>
                                         </button>
                                     </div>
-                                </td> 
+                                </td>
                             </tr>
 
                             @empty
-                                
+
                             @endforelse
 
-                           
+
 
                         </tbody>
                     </table>
@@ -122,11 +123,60 @@
             </div>
         </div>
     </div>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog ">
+
+            @if (isset($user))
+
+                <form action="{{ route('users.update', ['id' => $user->id ]) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Modifier un Utilisateur</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                            <input type="hidden" name="id" id="user_id">
+
+                            <div class="form-group  mb-3">
+                                <label for="responsable_nom" class="form-label">Nom du responsable</label>
+                                <input type="text" class="form-control" id="responsable_nom" name="responsable_nom" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email_contact" class="form-label">Email de contact</label>
+                                <input type="email" class="form-control" id="email_contact" name="email_contact" required>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                            <button type="submit"class="btn btn-primary">Modifier</button>
+                        </div>
+                    </div>
+                </form>
+
+            @endif
+
+
+        </div>
+    </div>
+
+
 </div>
 
 
-  <!-- Start Create Option Area -->
-  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+
+
+<!-- Start Create Option Area -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header border-bottom p-4">
         <h5 class="offcanvas-title fs-18 mb-0" id="offcanvasRightLabel">Create Task</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -136,13 +186,13 @@
         @if(session('success'))
         <div style="background-color: #d4edda; padding: 10px; border-radius: 5px; margin-bottom: 10px;">
             {{ session('success') }}
-     
+
         </div>
-      @endif 
+      @endif
 
         <form action="/userstore" method="POST" >
             @csrf
-            
+
             <div class="form-group mb-4">
                 <label class="label">Nom/Prénom</label>
                 <input type="text" name="responsable_nom" class="form-control text-dark" placeholder="Nom/Prénom">
@@ -154,10 +204,10 @@
             <div class="form-group mb-4">
                 <label class="label">Password</label>
                 <input type="Password" name="password"  class="form-control text-dark">
-           
+
             </div>
             <div class="form-group mb-4">
-           
+
             <div class="form-group d-flex gap-3">
                 <button class="btn btn-primary text-white fw-semibold py-2 px-2 px-sm-3">
                     <span class="py-sm-1 d-block">
@@ -173,6 +223,21 @@
 
 
 
+
+
 <!-- End Create Option Area -->
+
+<script>
+    function showUser(id) {
+        fetch('/update/'+id)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('responsable_nom').value = data.responsable_nom;
+                document.getElementById('email_contact').value = data.email_contact;
+                document.getElementById('user_id').value = data.id;
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>
 
 @endsection

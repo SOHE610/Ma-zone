@@ -287,10 +287,11 @@
 </style>
 
 <body>
-    <div class="container">
+    <div class="container" >
         <h1><i class="fas fa-exclamation-triangle"></i> Nouveau Signalement</h1>
         
-        <form id="signalementForm">
+        <form id="signalementForm" action="/signalement" method="POST" enctype="multipart/form-data">
+              @csrf
             <div class="form-group">
                 <label for="titre">Titre du signalement*</label>
                 <input type="text" id="titre" name="titre" required placeholder="Décrivez brièvement le problème">
@@ -303,19 +304,19 @@
             
             <div class="form-group">
                 <label for="categorie">Catégorie*</label>
-                <select id="categorie" name="categorie_id" required>
+                <select id="categorie" name="categorie" required>
                     <option value="">Sélectionnez une catégorie</option>
-                    <option value="1">Propreté</option>
-                    <option value="2">Voirie</option>
-                    <option value="3">Éclairage public</option>
-                    <option value="4">Espaces verts</option>
-                    <option value="5">Stationnement</option>
+                    <option value="Propreté">Propreté</option>
+                    <option value="Voirie">Voirie</option>
+                    <option value="Éclairage public">Éclairage public</option>
+                    <option value="Espaces verts">Espaces verts</option>
+                    <option value="Stationnement">Stationnement</option>
                 </select>
             </div>
             
             <div class="form-group">
                 <label for="quartier">Quartier*</label>
-                <select id="quartier" name="quartier_id" required>
+                <select id="quartier" name="quartier" required>
                     <option value="">Sélectionnez un quartier</option>
                     <option value="1">Centre-ville</option>
                     <option value="2">Nord</option>
@@ -371,13 +372,39 @@
         </div>
     </div>
 
-    <script >
-        document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('signalementForm');
-    const getLocationBtn = document.getElementById('getLocationBtn');
-    const locationStatus = document.getElementById('locationStatus');
-    const latitudeInput = document.getElementById('latitude');
-    const longitudeInput = document.getElementById
+    <script>
+        document.getElementById('getLocationBtn').addEventListener('click', function () {
+            const status = document.getElementById('locationStatus');
+            const latitudeInput = document.getElementById('latitude');
+            const longitudeInput = document.getElementById('longitude');
+
+            if (!navigator.geolocation) {
+                status.innerHTML = '<i class="fas fa-exclamation-triangle"></i> La géolocalisation n’est pas supportée par votre navigateur.';
+                return;
+            }
+
+            status.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Récupération de votre position…';
+
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+
+                    latitudeInput.value = latitude;
+                    longitudeInput.value = longitude;
+
+                    status.innerHTML = '<i class="fas fa-check-circle"></i> Position enregistrée !';
+                    status.classList.add('text-success');
+                },
+                function (error) {
+                    status.innerHTML = '<i class="fas fa-times-circle"></i> Impossible d’obtenir la position.';
+                    status.classList.add('text-danger');
+                    console.error('Erreur de géolocalisation :', error);
+                }
+            );
+        });
     </script>
+
+    
 </body>
 </html>

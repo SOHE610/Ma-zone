@@ -39,6 +39,13 @@
                     <span class="title">Membres</span>
                 </a>
             </li>
+
+              <li class="menu-item">
+                <a href="/Organisation" class="menu-link">
+                    <span class="material-symbols-outlined menu-icon">group</span>
+                    <span class="title">Organisation</span>
+                </a>
+            </li>
             
 
             

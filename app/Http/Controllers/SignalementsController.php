@@ -3,37 +3,41 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Signalements;
 
 class SignalementsController extends Controller
 {
     
 
-        public function store(Request $request)
-        {
+        public function store(Request $request){
             $validated = $request->validate([
                 'titre' => 'required|string|max:255',
                 'description' => 'required|string',
-                'categorie_id' => 'required|exists:categories,id',
-                'quartier_id' => 'required|exists:quartiers,id',
+                'categorie' => 'required|string',
+                'quartier' => 'required|string',
                 'latitude' => 'required|numeric',
                 'longitude' => 'required|numeric',
                 'photo' => 'nullable|image|max:2048',
             ]);
 
+            // Gérer l’upload de la photo
+            $photoPath = null;
             if ($request->hasFile('photo')) {
-                $path = $request->file('photo')->store('signalements', 'public');
-                $validated['photo'] = $path;
+                $photoPath = $request->file('photo')->store('signalements', 'public');
             }
 
-            $validated['utilisateur_id'] = auth()->id();
-            $validated['date_signalement'] = now();
+            Signalements::create([
+                'titre' => $validated['titre'],
+                'description' => $validated['description'],
+                'categorie' => $validated['categorie'],
+                'quartier' => $validated['quartier'],
+                'utilisateur_id' => auth()->id(),
+                'latitude' => $validated['latitude'],
+                'longitude' => $validated['longitude'],
+                'photo' => $photoPath,
+            ]);
 
-
-        
-
-           
-
-            return redirect()->back()->with('success', 'signalement fait !');
+            return redirect('/signalement')->with('success', 'Signalement enregistré avec succès.');
         }
 
 }

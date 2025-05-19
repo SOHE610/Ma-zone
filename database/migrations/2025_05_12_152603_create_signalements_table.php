@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('titre');
             $table->text('description');
-            $table->foreignId('categorie_id')->constrained('categories');
-            $table->foreignId('utilisateur_id')->constrained('utilisateurs');
-            $table->foreignId('quartier_id')->constrained('quartiers');
+            $table->string('categorie'); // Pas de contrainte
+            $table->unsignedBigInteger('utilisateur_id');
+            $table->string('quartier');
             $table->decimal('latitude', 10, 7);
             $table->decimal('longitude', 10, 7);
             $table->string('photo')->nullable();
